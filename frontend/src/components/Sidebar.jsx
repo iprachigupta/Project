@@ -7,25 +7,23 @@ import { MdManageAccounts } from "react-icons/md";
 import { IoToggle } from "react-icons/io5";
 import { MdOutlineLogin } from "react-icons/md";
 import SidebarItem from "./SidebarItem";
+import Logo from './Logo';
 
 function Sidebar() {
   return (
     <div className="static">
       <div className="bg-white  w-64 p-6 shadow-xl shadow-slate-500 h-screen fixed top-0 left-0">
-        <h2 className="text-3xl font-bold mb-10">
-          <span className="text-black">Expense</span>
-          <span className="text-blue-500">Trackr</span>
-        </h2>
+        <Logo />
         <ul className="space-y-4 pt-4">
-          <li><SidebarItem icon={<MdOutlineDashboard />} title="Dashboard" /></li>
-          <li><SidebarItem icon={<GrTransaction />} title="Transaction" /></li>
-          <li><SidebarItem icon={<IoAddCircleOutline />} title="Add Expense" /></li>
-          <li><SidebarItem icon={<MdManageAccounts />} title="Account" /></li>
+          <li><SidebarItem icon={<MdOutlineDashboard />} title="Dashboard" route="/dashboard" /></li>
+          <li><SidebarItem icon={<GrTransaction />} title="Transactions" route="/transactions" /></li>
+          <li><SidebarItem icon={<IoAddCircleOutline />} title="Add Expense" route="/add-expense" /></li>
+          <li><SidebarItem icon={<MdManageAccounts />} title="Account" route="/account" /></li>
         </ul>
         <div className="space-y-4 pt-12">
             <ul>
-                <li><SidebarItem icon={<IoToggle />} title="Switch Account" /></li>
-                <li className="pt-4"><SidebarItem icon={<MdOutlineLogin />} title="Log out" /></li>
+                <li><SidebarItem icon={<IoToggle />} title="Switch Account" route="/switch-account" /></li>
+                <li className="pt-4"><SidebarItem icon={<MdOutlineLogin />} title="Log out" route="/login" /></li>
             </ul>
         </div>
       </div>

@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleError, handleSuccess,} from "../utils/toast";
+import Logo from "../components/Logo";
 
 function Signup() {
   const [users, setUsers] = useState({
@@ -58,7 +59,11 @@ function Signup() {
     <>
       <div className="flex items-center justify-center h-screen">
         <div className="bg-blue-100 shadow-lg shadow-slate-400 rounded-lg border border-gray-300 p-8 w-96">
-          <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+          <h2 className="text-3xl text-center">
+            <p className='pb-1 font-bold'>Sign Up</p>
+            <p className='pb-1 font-medium'>To</p>
+            <p><Logo/></p>
+          </h2>
           <form onSubmit={handleFormSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700">Name :</label>
@@ -132,7 +137,7 @@ function Signup() {
 
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -140,7 +145,7 @@ function Signup() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        className="z-50" // Optional: adjust z-index if needed
+        className=""
       />
     </>
   );

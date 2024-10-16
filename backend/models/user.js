@@ -1,6 +1,8 @@
-const { required } = require("joi");
+//schema of the user
+// const { required } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
     name:{
         type: String,
@@ -10,7 +12,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        
     },
     password: {
         type: String,
@@ -29,4 +31,5 @@ const userSchema = new Schema({
 },{timestamps:true});
 
 const UserModel = mongoose.model("users", userSchema);
+
 module.exports = UserModel;

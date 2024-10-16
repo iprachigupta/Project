@@ -5,6 +5,7 @@ import {ToastContainer} from "react-toastify";
 import {Link, useNavigate} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleSuccess, handleError } from '../utils/toast';
+import Logo from '../components/Logo';
 
 function Login() {
   const [users, setUsers] = useState({
@@ -62,15 +63,19 @@ function Login() {
     <>
       <div className="flex items-center justify-center h-screen">
         <div className="bg-blue-100 shadow-lg shadow-slate-400 rounded-lg border border-gray-300 p-16 w-96">
-          <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
+          <h2 className="text-3xl mb-6 text-center">
+            <p className='pb-2 font-bold'>Login</p>
+            <p className='pb-2 font-medium'>To</p>
+            <p><Logo/></p>
+          </h2>
           <form onSubmit={handleFormSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700" >Email :</label>
-              <input className="mt-1 p-2 border border-gray-300 rounded w-full" type="text" name="email" placeholder="Enter you email" required value={users.email} onChange={handleChange} autoComplete="off"/>
+              <input className="mt-1 p-2 border border-gray-300 rounded w-full" type="text" name="email" placeholder="Enter you email" value={users.email} onChange={handleChange} autoComplete="off"/>
             </div>
             <div className="mb-4">
               <label className="block text-gray-700" >Password :</label>
-              <input className="mt-1 p-2 border border-gray-300 rounded w-full" type="password" name="password" placeholder="Enter your password" required value={users.password} onChange={handleChange} autoComplete="off"/> 
+              <input className="mt-1 p-2 border border-gray-300 rounded w-full" type="password" name="password" placeholder="Enter your password" value={users.password} onChange={handleChange} autoComplete="off"/> 
             </div>
             <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg shadow-blue-700/60 hover:opacity-90">Login</button>
           </form>
@@ -82,7 +87,7 @@ function Login() {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -90,7 +95,7 @@ function Login() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        className="z-50" // Optional: adjust z-index if needed
+        className="" // Optional: adjust z-index if needed
       />
     </>
   )

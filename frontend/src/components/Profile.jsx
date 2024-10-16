@@ -6,7 +6,7 @@ import Card from './Cards';
 
 function Profile() {
   return (
-    <div className="flex-1 p-8 h-screen absolute top-0 inset-x-72">
+    <div className="flex-1 p-8 h-screen absolute top-0 left-64 right-0">
       <header className="flex justify-between items-center mb-4">
         <div>
           <h2 className="text-3xl font-semibold">Hi, </h2>
