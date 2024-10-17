@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+
+
 const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -23,7 +25,7 @@ const signup = async (req, res) => {
     const accessToken = jwt.sign(
       { id: userModel._id, email: userModel.email },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "15m" }
+      { expiresIn: "5m" }
     );
 
     const refreshToken = jwt.sign(
@@ -33,6 +35,13 @@ const signup = async (req, res) => {
     );
 
     // Set refresh token in cookie (httpOnly)
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 5 * 60 * 1000,
+    });
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", 
@@ -40,7 +49,13 @@ const signup = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.status(201).json({ message: "Signup Successful.", success: true });
+    res.status(201).json({ 
+      message: "Signup Successful.", 
+      success: true,
+      accessToken,
+      email,
+      user: user.name,
+      redirectUrl: "/dashboard" });
   } catch (error) {
 
     console.log(error);
@@ -53,6 +68,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log(req.headers);
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
 
@@ -74,7 +90,7 @@ const login = async (req, res) => {
     const accessToken = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "15m" }
+      { expiresIn: "5m" }
     );
     const refreshToken = jwt.sign(
       { id: user._id, email: user.email },
@@ -83,13 +99,21 @@ const login = async (req, res) => {
     );
 
     // Set refresh token in cookie (httpOnly)
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      maxAge: 5 * 60 * 1000,
+    });
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    
     res
       .status(200)
       .json({
@@ -98,6 +122,7 @@ const login = async (req, res) => {
         accessToken,
         email,
         user: user.name,
+        redirectUrl: "/dashboard"
       });
   } catch (error) {
 
@@ -126,7 +151,7 @@ const refreshToken = async (req, res) => {
       const newAccessToken = jwt.sign(
         { id: user.id, email: user.email },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: "15m" }
+        { expiresIn: "5m" }
       );
 
       res.status(200).json({ accessToken: newAccessToken });
@@ -142,10 +167,9 @@ const refreshToken = async (req, res) => {
 
 // Logout to Clear Cookies
 const logout = (req, res) => {
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+  // console.log(req.headers)
+  res.clearCookie("accessToken", {
+    path: '/'
   });
   res.status(200).json({ message: "Logout successful.", success: true });
 };

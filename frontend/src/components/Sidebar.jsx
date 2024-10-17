@@ -23,7 +23,7 @@ function Sidebar() {
         <div className="space-y-4 pt-12">
             <ul>
                 <li><SidebarItem icon={<IoToggle />} title="Switch Account" route="/switch-account" /></li>
-                <li className="pt-4"><SidebarItem icon={<MdOutlineLogin />} title="Log out" route="/login" /></li>
+                <li className="pt-4"><SidebarItem icon={<MdOutlineLogin />} title="Log out" route="/logout" /></li>
             </ul>
         </div>
       </div>

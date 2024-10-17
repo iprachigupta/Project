@@ -6,12 +6,24 @@ import Transactions from './screens/Transactions';
 import AddExpense from './screens/AddExpense';
 import Account from './screens/Account';
 import SwitchAccount from './screens/SwitchAccount';
-
-
+// import Cookies from "js-cookie";
+// import { useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
+import Logout from './screens/Logout';
+// import { handleError } from './utils/toast';
 
 
 
 function App() {
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const token = Cookies.get('accessToken');
+  //   console.log("🚀 ~ useEffect ~ token:", token)
+  //   if (token) {
+  //     // Redirect to dashboard if token exists
+  //     navigate('/dashboard');
+  //   }
+  // }, []);
 
   console.log("APP rendered");
   return (
@@ -27,7 +39,7 @@ function App() {
         <Route path="/add-expense" element={<AddExpense />}/>
         <Route path="/account" element={<Account />}/>
         <Route path="/switch-account" element={<SwitchAccount />}/>
-        <Route path="/logout" element={<Navigate to="/login"></Navigate>}/>
+        <Route path="/logout" element={<Logout/>}/>
       </Routes>
 
     </div>

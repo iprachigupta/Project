@@ -6,15 +6,19 @@ import {Link, useNavigate} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleSuccess, handleError } from '../utils/toast';
 import Logo from '../components/Logo';
+// import Cookies from 'js-cookie';
+
 
 function Login() {
   const [users, setUsers] = useState({
-    email: "",
-    password:""
+    email: "prachi1@gmail.com",
+    password:"Prachi@123"
   });
 
   const navigate = useNavigate();
 
+  
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const {email, password} = users;
@@ -28,18 +32,21 @@ function Login() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(users)
+        body: JSON.stringify(users),
+        credentials: "include"
       });
       const result = await response.json();
       console.log(result);
-      const {message, success, jwtToken, name ,error} = result;
+      const {message, success, error} = result;
       if(success){
         handleSuccess(message);
-        localStorage.setItem("token", jwtToken);
-        localStorage.setItem("logged user", name);
-        setTimeout(()=>{
-          navigate('/dashboard');
-        },1000)
+        // if(result.accessToken){
+        //   // Cookies.set("accessToken", result.accessToken,);
+        //   const token = Cookies.get('accessToken');
+        //   console.log("Token set" , token);
+        //   navigate("/dashboard")
+        // }.................now navigate to dash
+        navigate("/dashboard");
       }else if(!success){
         handleError(message);
       }else if(error){
